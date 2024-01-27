@@ -1,0 +1,27 @@
+.weekday_indicator {
+	.item {
+		visibility: hidden;
+		max-width: 12px;
+		overflow: clip;
+		display: inline-block;
+
+		&::before {
+			display: inline-block;
+			content: "";
+			visibility: visible;
+
+			width: 10px;
+			height: 10px;
+			border-radius: 4px;
+			border: 1px solid var(--root-color);
+		}
+
+		&.filled::before {
+			background-color: var(--root-color);
+		}
+	}
+}
+
+.day {
+	font-size: 48px;
+}
