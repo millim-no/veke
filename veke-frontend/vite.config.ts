@@ -8,7 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         'script': 'src/main.ts',
-        'styles': 'src/index.css',
+        'styles': 'src/style.scss',
       },
       output: {
         assetFileNames: "[name].[ext]"
