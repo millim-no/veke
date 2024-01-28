@@ -1,27 +1,64 @@
-.weekday_indicator {
-	.item {
-		visibility: hidden;
-		max-width: 12px;
-		overflow: clip;
-		display: inline-block;
+.day-card {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	grid-template-rows: auto;
 
-		&::before {
+	.weekno {
+		grid-column: 1/2;
+	}
+
+	.weekno,
+	.yeardays {
+		grid-row-start: 1;
+	}
+
+	.yeardays {
+		grid-column: -2/-1;
+	}
+
+	div {
+		grid-column: 2/3;
+	}
+
+	.weekday_indicator {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 4px;
+
+		column-span: all;
+		grid-column: 1/-1;
+
+		height: 24px;
+
+		.item {
+			visibility: hidden;
+			max-width: 12px;
+			overflow: clip;
 			display: inline-block;
-			content: "";
-			visibility: visible;
+			display: block;
+			font-size: 1px;
+			height: min-content;
 
-			width: 10px;
-			height: 10px;
-			border-radius: 4px;
-			border: 1px solid var(--root-color);
-		}
+			&::before {
+				display: inline-block;
+				content: "";
+				visibility: visible;
 
-		&.filled::before {
-			background-color: var(--root-color);
+				width: 10px;
+				height: 10px;
+				border-radius: 4px;
+				border: 1px solid var(--root-color);
+			}
+
+			&.filled::before {
+				background-color: var(--root-color);
+			}
 		}
 	}
-}
 
-.day {
-	font-size: 48px;
+	.day {
+		font-size: 72px;
+	}
 }

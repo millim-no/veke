@@ -1,0 +1,11 @@
+.gauge {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+  padding-bottom: 2em;
+
+  .description {
+    font-size: 12px;
+    color: var(--root-secondary-color);
+  }
+}
