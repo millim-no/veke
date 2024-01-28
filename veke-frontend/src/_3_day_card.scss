@@ -19,6 +19,14 @@
 	div {
 		grid-column: 2/3;
 	}
+	
+	.month {
+		font-size: 20px;
+	}
+
+	.weekday {
+		padding-bottom: 2em;
+	}
 
 	.weekday_indicator {
 		display: flex;
@@ -60,5 +68,7 @@
 
 	.day {
 		font-size: 72px;
+		line-height: 1;
+		padding-top: 1rem;
 	}
 }
