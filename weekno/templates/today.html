@@ -10,25 +10,24 @@
     <main id="root">
     <section class="card day-card">
         <div class="weekno gauge">
-            <div class="counter">4/52</div>
+            <div class="counter">{{ week }}</div>
             <div class="description">veke</div>
         </div>
         <div class="filler"></div>
         <div class="yeardays gauge">
-            <div class="counter">24/366</div>
+            <div class="counter">{{ ordinal_day }}</div>
             <div class="description">dag i år</div>
         </div>
-        <div class="month">januar</div>
-        <div class="day">24</div>
-        <div class="weekday">onsdag</div>
+        <div class="month">{{ month }}</div>
+        <div class="day">{{ day }}</div>
+        <div class="weekday">{{ weekday }}</div>
         <div class="weekday_indicator">
-            <span class="item filled">o</span>
-            <span class="item filled">o</span>
-            <span class="item filled">o</span>
-            <span class="item">.</span>
-            <span class="item">.</span>
-            <span class="item">.</span>
-            <span class="item">.</span>
+            {% for i in full_slots %}
+                <span class="item filled">o</span>
+            {% endfor %}
+            {% for i in empty_slots %}
+                <span class="item">.</span>
+            {% endfor %}
         </div>
     </section>
 </main>
