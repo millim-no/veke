@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic.base import TemplateView
 
 import time
@@ -27,4 +28,24 @@ class DayView(TemplateView):
         context["weekday"] = WEEKDAYS[today.isoweekday() - 1]
         context["full_slots"] = [x for x in range(today.isoweekday())]
         context["empty_slots"] = [x for x in range(7 - today.isoweekday())]
+
+        yesterday = today - timedelta(hours=24)
+        tomorrow = today + timedelta(hours=24)
+        context["prev_link"] = reverse(
+            "by_day",
+            kwargs={
+                'year': yesterday.year,
+                'month': yesterday.month,
+                'day': yesterday.day
+            }
+        )
+        context["next_link"] = reverse(
+            "by_day",
+            kwargs={
+                'year': tomorrow.year,
+                'month': tomorrow.month,
+                'day': tomorrow.day
+            }
+        )
+        print(repr(context))
         return context
