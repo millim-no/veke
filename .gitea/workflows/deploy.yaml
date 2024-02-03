@@ -1,0 +1,51 @@
+name: Deploy action
+# run-name: ${{ github.actor }} pushed to production 🚀
+on:
+  push:
+    branches:
+      - 'main'
+      - 'stage'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install Node
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y nodejs
+      - run: cd ${{ github.workspace }}
+      - name: Install dependencies
+        run: |
+          cd veke-frontend
+          npm i
+      - name: Build frontend
+        run: |
+          npm run build
+      - name: Install rsync
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y rsync
+      - name: Fetch the stage target private key
+        with:
+          ssh_key: ${{ secrets.STAGE_PRIVKEY }}
+        run: |
+          echo "$ssh_key" >> /tmp/target.key
+      - name: Deploy to the stage host
+        if: ${{ github.ref == 'refs/heads/stage' }}
+        env:
+          target: ${{ vars.STAGE_HOST }}
+        run: rsync -a --ignore=veke-frontend -i /tmp/target.key $TARGET
+      - name: Fetch the deploy target private key
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          ssh_key: ${{ secrets.DEPLOY_PRIVKEY }}
+        run: |
+          echo "$ssh_key" >> /tmp/target.key
+      - name: Deploy to the target host
+        if: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          target: ${{ vars.DEPLOY_HOST }}
+        run: rsync -a --ignore=veke-frontend -i /tmp/target.key $TARGET
