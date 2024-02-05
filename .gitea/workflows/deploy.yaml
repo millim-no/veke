@@ -39,7 +39,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/stage' }}
         env:
           target: ${{ vars.STAGE_HOST }}
-        run: rsync -a --ignore=veke-frontend -i /tmp/target.key $TARGET
+        run: rsync -a -e "ssh -i /tmp/target.key" --ignore=veke-frontend ./ $TARGET
       - name: Fetch the deploy target private key
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
@@ -50,4 +50,4 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         env:
           target: ${{ vars.DEPLOY_HOST }}
-        run: rsync -a --ignore=veke-frontend -i /tmp/target.key $TARGET
+        run: rsync -a -e "ssh -i /tmp/target.key" --ignore=veke-frontend ./ $TARGET
