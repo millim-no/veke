@@ -13,6 +13,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           ssh-key: "${{ secrets.DEPLOY_KEY }}"
           ssh-strict: false
       - name: Install Node
