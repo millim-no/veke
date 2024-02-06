@@ -13,6 +13,7 @@ jobs:
       - name: Check out repository code
         run: |
           echo $ssh_key > /tmp/deploy.key && \
+          chmod 600 /tmp/deploy.key && \
           apt-get update && \
           apt-get install git && \
           GIT_SSH_COMMAND="ssh -i /tmp/deploy.key -o StrictHostKeyChecking=no" \
