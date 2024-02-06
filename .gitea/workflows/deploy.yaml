@@ -17,7 +17,7 @@ jobs:
           apt-get update && \
           apt-get install git && \
           GIT_SSH_COMMAND="ssh -i /tmp/deploy.key -o StrictHostKeyChecking=no" \
-          git clone git@gitea.ts.millim.no:${{ github.repository }} && \
+          git clone git@gitea.ts.millim.no:${{ github.repository }} . && \
           git checkout ${{ github.ref }}
         with:
           ssh_key: ${{ secrets.DEPLOY_KEY }}
