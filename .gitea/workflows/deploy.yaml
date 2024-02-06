@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ssh-key: "${{ secrets.DEPLOY_KEY }}"
+          ssh-strict: false
       - name: Install Node
         run: |
           apt-get update && \
