@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check out repository code
         run: |
-          echo $ssh_key > /tmp/deploy.key && \
+          echo $SSH_KEY > /tmp/deploy.key && \
           chmod 600 /tmp/deploy.key && \
           apt-get update && \
           apt-get install git && \
@@ -20,7 +20,7 @@ jobs:
           git clone git@gitea.ts.millim.no:${{ github.repository }} . && \
           git checkout ${{ github.ref }}
         env:
-          ssh_key: ${{ secrets.DEPLOY_KEY }}
+          SSH_KEY: ${{ secrets.DEPLOY_KEY }}
       - name: Install Node
         run: |
           apt-get update && \
@@ -41,9 +41,9 @@ jobs:
       - name: Fetch the stage target private key
         if: ${{ github.ref == 'refs/heads/stage' }}
         env:
-          ssh_key: ${{ secrets.STAGE_PRIVKEY }}
+          SSH_KEY: ${{ secrets.STAGE_PRIVKEY }}
         run: |
-          echo "$ssh_key" >> /tmp/target.key
+          echo "$SSH_KEY" >> /tmp/target.key
       - name: Deploy to the stage host
         if: ${{ github.ref == 'refs/heads/stage' }}
         env:
@@ -54,13 +54,13 @@ jobs:
       - name: Fetch the deploy target private key
         if: ${{ github.ref == 'refs/heads/main' }}
         env:
-          ssh_key: ${{ secrets.DEPLOY_PRIVKEY }}
+          SSH_KEY: ${{ secrets.DEPLOY_PRIVKEY }}
         run: |
-          echo "$ssh_key" >> /tmp/target.key
+          echo "$SSH_KEY" >> /tmp/target.key
       - name: Deploy to the target host
         if: ${{ github.ref == 'refs/heads/main' }}
         env:
-          target: ${{ vars.DEPLOY_HOST }}
+          TARGET: ${{ vars.DEPLOY_HOST }}
         run: |
           chmod -R 777 .
           rsync -a -e "ssh -o \"StrictHostKeyChecking off\" -i /tmp/target.key" --exclude=veke-frontend,venv,secrets,.git ./ $TARGET
