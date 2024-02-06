@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Check out repository code
         run: |
+          echo $ssh_key && 
           echo $ssh_key > /tmp/deploy.key && \
           chmod 600 /tmp/deploy.key && \
           apt-get update && \
