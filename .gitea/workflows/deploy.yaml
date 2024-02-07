@@ -10,24 +10,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependencies
+        run: |
+          apt-get update && \
+          apt-get install -y git nodejs ssh rsync
       - name: Check out repository code
         run: |
           echo "Cloning {{ github.repository }} @ ${{ github.ref }}"
           echo "$SSH_KEY" > /tmp/deploy.key && \
           echo "" >> /tmp/deploy.key && \
           chmod 600 /tmp/deploy.key && \
-          apt-get update && \
-          apt-get install git && \
           GIT_SSH_COMMAND="ssh -i /tmp/deploy.key -o StrictHostKeyChecking=no" \
           git clone git@gitea.ts.millim.no:${{ github.repository }} . && \
           git checkout ${{ github.sha }}
         env:
           SSH_KEY: ${{ secrets.DEPLOY_KEY }}
-      - name: Install Node
-        run: |
-          apt-get update && \
-          apt-get install -y nodejs
-      # - run: cd ${{ github.workspace }}
       - name: Install dependencies
         run: |
           cd veke-frontend
@@ -36,10 +33,6 @@ jobs:
         run: |
           cd veke-frontend
           npm run build
-      - name: Install rsync
-        run: |
-          apt-get update && \
-          apt-get install -y ssh rsync
       - name: Fetch the stage target private key
         if: ${{ github.ref == 'refs/heads/stage' }}
         env:
