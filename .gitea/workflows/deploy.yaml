@@ -13,9 +13,9 @@ jobs:
       - name: Check out repository code
         run: |
           echo "Cloning {{ github.repository }} @ ${{ github.ref }}"
-          echo $SSH_KEY > /tmp/deploy.key && \
+          echo "$SSH_KEY" > /tmp/deploy.key && \
           echo "" >> /tmp/deploy.key && \
-          tail -n 4 /tmp/deploy.key && \
+          cat -n /tmp/deploy.key | tail -n 4 && \
           chmod 600 /tmp/deploy.key && \
           apt-get update && \
           apt-get install git && \
