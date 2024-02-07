@@ -16,7 +16,7 @@ jobs:
           apt-get install -y git nodejs ssh rsync
       - name: Check out repository code
         run: |
-          echo "Cloning {{ github.repository }} @ ${{ github.ref }}"
+          echo "Cloning ${{ github.repository }} @ ${{ github.ref }}"
           echo "$SSH_KEY" > /tmp/deploy.key && \
           echo "" >> /tmp/deploy.key && \
           chmod 600 /tmp/deploy.key && \
