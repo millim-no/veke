@@ -14,7 +14,7 @@ jobs:
         run: |
           echo "Cloning {{ github.repository }} @ ${{ github.ref }}"
           echo $SSH_KEY > /tmp/deploy.key && \
-          echo '\n' >> /tmp/deploy.key && \
+          echo "" >> /tmp/deploy.key && \
           tail -n 4 /tmp/deploy.key && \
           chmod 600 /tmp/deploy.key && \
           apt-get update && \
@@ -47,7 +47,7 @@ jobs:
           SSH_KEY: ${{ secrets.STAGE_PRIVKEY }}
         run: |
           echo "$SSH_KEY" >> /tmp/target.key
-          echo '\n' >> /tmp/target.key
+          echo "" >> /tmp/target.key
       - name: Deploy to the stage host
         if: ${{ github.ref == 'refs/heads/stage' }}
         env:
@@ -61,7 +61,7 @@ jobs:
           SSH_KEY: ${{ secrets.DEPLOY_PRIVKEY }}
         run: |
           echo "$SSH_KEY" >> /tmp/target.key
-          echo '\n' >> /tmp/target.key
+          echo "" >> /tmp/target.key
       - name: Deploy to the target host
         if: ${{ github.ref == 'refs/heads/main' }}
         env:
