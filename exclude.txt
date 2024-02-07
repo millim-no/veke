@@ -1,0 +1,7 @@
+exclude.txt
+venv
+veke-frontend
+.git
+.gitea
+.gitignore
+.vscode
