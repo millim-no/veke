@@ -1,0 +1,4 @@
+venv
+veke_frontend
+.git
+.gitignore
