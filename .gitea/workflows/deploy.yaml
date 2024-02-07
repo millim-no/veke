@@ -9,11 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: node:20-bookworm
+      options: --dns 100.100.100.100
     steps:
       - name: Install dependencies
         run: |
           apt-get update && \
-          apt-get install -y git nodejs ssh rsync
+          apt-get install -y git ssh rsync
       - name: Check out repository code
         run: |
           echo "Cloning ${{ github.repository }} @ ${{ github.ref }}"
